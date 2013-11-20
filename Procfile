@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* com.sirs.mobilecashserver.MobileCashServer
+web: sh target/bin/webapp
