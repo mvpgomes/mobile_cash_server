@@ -1,4 +1,4 @@
-package com.sirs.mobilecashserver;
+package com.sirs.mobilecashserver.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
  * 
  */
 @Path("/hello")
-public class App {
+public class Hello {
 	@GET
 	public Response getMsg() {
 
