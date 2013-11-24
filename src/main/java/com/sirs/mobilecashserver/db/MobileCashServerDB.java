@@ -103,7 +103,8 @@ public class MobileCashServerDB {
 
 	public User login(String username, String password) {
 		User user = getUser(username);
-		if (user.getPassword().equals(password)) {
+
+		if (user != null && user.getPassword().equals(password)) {
 			return user;
 		} else {
 			return null;

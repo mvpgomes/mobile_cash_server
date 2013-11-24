@@ -1,6 +1,6 @@
 package com.sirs.mobilecashserver.rest.models;
 
-public class PaymentResponse {
+public class PaymentResponse extends Response {
 	private String username;
 	private String product;
 	private double balance;
