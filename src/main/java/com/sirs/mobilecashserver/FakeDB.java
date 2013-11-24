@@ -5,7 +5,7 @@ import com.sirs.mobilecashserver.db.MobileCashServerDB;
 /**
  * * The Class Populate.
  */
-public class Populate {
+public class FakeDB {
 
 	/** The USERNAM e_1. */
 	private static String USERNAME_1 = "mvpgomes";
@@ -34,20 +34,20 @@ public class Populate {
 	/** The BALANC e_3. */
 	private static double BALANCE_3 = 385.00;
 
+	private static String PRODUCT_1 = "coca-cola";
+	private static double PRICE_1 = 0.75;
+
 	/**
 	 * Instantiates a new populate.
 	 */
-	public Populate() {
+	public FakeDB() {
 
 	}
 
 	/**
-	 * The main method.
-	 * 
-	 * @param args
-	 *            the arguments
+	 * The init method. Populate a fake database
 	 */
-	public static void main(String args[]) {
+	public static void init() {
 
 		MobileCashServerDB database = MobileCashServerDB.getInstance();
 
@@ -57,6 +57,7 @@ public class Populate {
 		database.registerAccount(USERNAME_1, BALANCE_1);
 		database.registerAccount(USERNAME_2, BALANCE_2);
 		database.registerAccount(USERNAME_3, BALANCE_3);
+		database.registerProduct(PRODUCT_1, PRICE_1);
 
 	}
 }

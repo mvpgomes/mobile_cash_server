@@ -8,6 +8,15 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
+		initDB();
+		initServer();
+	}
+
+	/**
+	 * @throws Exception
+	 * @throws InterruptedException
+	 */
+	private static void initServer() throws Exception, InterruptedException {
 		String webappDirLocation = "src/main/webapp/";
 
 		// The port that we should run on can be set into an environment
@@ -41,5 +50,8 @@ public class Main {
 		server.join();
 	}
 
-}
+	private static void initDB() {
+		FakeDB.init();
+	}
 
+}

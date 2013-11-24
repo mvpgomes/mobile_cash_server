@@ -1,4 +1,4 @@
-package com.sirs.mobilecashserver.db;
+package com.sirs.mobilecashserver.rest.models;
 
 /**
  * The Class BankAccount.
@@ -29,7 +29,7 @@ public class BankAccount {
 	 * 
 	 * @return the balance
 	 */
-	double getBalance() {
+	public double getBalance() {
 		return this.balance;
 	}
 
@@ -39,7 +39,7 @@ public class BankAccount {
 	 * @param balance
 	 *            the new balance
 	 */
-	void setBalance(float balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
@@ -48,7 +48,7 @@ public class BankAccount {
 	 * 
 	 * @return the username
 	 */
-	String getUsername() {
+	public String getUsername() {
 		return this.username;
 	}
 
@@ -58,7 +58,7 @@ public class BankAccount {
 	 * @param username
 	 *            the new username
 	 */
-	void setUsername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 

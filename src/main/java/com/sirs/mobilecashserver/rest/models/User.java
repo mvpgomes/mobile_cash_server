@@ -1,4 +1,4 @@
-package com.sirs.mobilecashserver.db;
+package com.sirs.mobilecashserver.rest.models;
 
 /**
  * The Class User.
