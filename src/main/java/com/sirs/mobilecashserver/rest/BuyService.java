@@ -19,41 +19,39 @@ import com.sirs.mobilecashserver.rest.models.User;
 @Path("buy")
 public class BuyService {
 
-	private final MobileCashServerDB db = MobileCashServerDB.getInstance();
+    private final MobileCashServerDB db = MobileCashServerDB.getInstance();
 
-	@POST
-	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response buy(Payment payment) {
-		User user = db.login(payment.getUsername(), payment.getPassword());
+    @POST
+    @Consumes({ MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response buy(Payment payment) {
+        User user = db.login(payment.getUsername(), payment.getPassword());
 
-		if (user != null) {
-			Product product = db.getProduct(payment.getProduct());
-			BankAccount account = db.getAccount(payment.getUsername());
+        if (user != null) {
+            Product product = db.getProduct(payment.getProduct());
+            BankAccount account = db.getAccount(payment.getUsername());
 
-			if (product == null) {
-				return new ErrorResponse("Product " + payment.getProduct()
-						+ " does not exist");
-			}
+            if (product == null) {
+                return new ErrorResponse("Product " + payment.getProduct() + " does not exist");
+            }
 
-			// Check if the user can buy this product
-			if (account.getBalance() >= product.getPrice()) {
-				double oldBalance = account.getBalance();
-				double newBalance = oldBalance - product.getPrice();
-				account.setBalance(newBalance);
-				return new PaymentResponse(user.getUsername(),
-						product.getCode(), account.getBalance());
-			}
-			return new ErrorResponse("Insufficient balance");
+            // Check if the user can buy this product
+            if (account.getBalance() >= product.getPrice()) {
+                double oldBalance = account.getBalance();
+                double newBalance = oldBalance - product.getPrice();
+                account.setBalance(newBalance);
+                return new PaymentResponse(user.getUsername(), product.getCode(), account.getBalance());
+            }
+            return new ErrorResponse("Insufficient balance");
 
-		}
-		return new ErrorResponse("Wrong username/password");
+        }
+        return new ErrorResponse("Wrong username/password");
 
-	}
+    }
 
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Payment buy() {
-		return new Payment("test", "test", "test");
-	}
+    @GET
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Payment buy() {
+        return new Payment("test", "test", "test");
+    }
 }
