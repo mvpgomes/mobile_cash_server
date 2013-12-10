@@ -1,5 +1,7 @@
 package com.sirs.mobilecashserver;
 
+import java.security.NoSuchAlgorithmException;
+
 import com.sirs.mobilecashserver.db.MobileCashServerDB;
 
 /**
@@ -46,8 +48,10 @@ public class FakeDB {
 
 	/**
 	 * The init method. Populate a fake database
+	 * 
+	 * @throws NoSuchAlgorithmException
 	 */
-	public static void init() {
+	public static void init() throws NoSuchAlgorithmException {
 
 		MobileCashServerDB database = MobileCashServerDB.getInstance();
 

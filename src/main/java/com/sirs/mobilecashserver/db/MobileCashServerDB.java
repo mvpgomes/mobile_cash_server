@@ -1,5 +1,8 @@
 package com.sirs.mobilecashserver.db;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,9 +42,11 @@ public class MobileCashServerDB {
 	 *            the username
 	 * @param password
 	 *            the password
+	 * @throws NoSuchAlgorithmException
 	 */
-	public void registerUser(String username, String password) {
-		User user = new User(username, password);
+	public void registerUser(String username, String password)
+			throws NoSuchAlgorithmException {
+		User user = new User(username, hash(password));
 		this.users.put(username, user);
 	}
 
@@ -103,11 +108,27 @@ public class MobileCashServerDB {
 
 	public User login(String username, String password) {
 		User user = getUser(username);
-
-		if (user != null && user.getPassword().equals(password)) {
-			return user;
-		} else {
+		try {
+			byte[] hashedPassword = hash(password);
+			if (user != null
+					&& Arrays.equals(user.getPassword(), hashedPassword)) {
+				return user;
+			} else {
+				return null;
+			}
+		} catch (NoSuchAlgorithmException e) {
 			return null;
 		}
+	}
+
+	private byte[] hash(String stringToHash) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+		// Hash the message
+		digest.update(stringToHash.getBytes());
+		// String hash = new String(digest.digest());
+		byte[] hash = digest.digest();
+
+		return hash;
 	}
 }
