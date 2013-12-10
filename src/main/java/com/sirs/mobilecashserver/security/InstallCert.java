@@ -1,4 +1,4 @@
-package com.sirs.sodamachine.security;
+package com.sirs.mobilecashserver.security;
 
 /*
  * Copyright 2006 Sun Microsystems, Inc.  All Rights Reserved.
@@ -64,6 +64,12 @@ import javax.net.ssl.X509TrustManager;
  */
 public class InstallCert {
 
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
         String host;
         int port;
@@ -164,8 +170,15 @@ public class InstallCert {
         System.out.println("Added certificate to keystore 'jssecacerts' using alias '" + alias + "'");
     }
 
+    /** The Constant HEXDIGITS. */
     private static final char[] HEXDIGITS = "0123456789abcdef".toCharArray();
 
+    /**
+     * To hex string.
+     * 
+     * @param bytes the bytes
+     * @return the string
+     */
     private static String toHexString(byte[] bytes) {
         StringBuilder sb = new StringBuilder(bytes.length * 3);
         for (int b : bytes) {
@@ -177,25 +190,45 @@ public class InstallCert {
         return sb.toString();
     }
 
+    /**
+     * The Class SavingTrustManager.
+     */
     private static class SavingTrustManager implements X509TrustManager {
 
+        /** The tm. */
         private final X509TrustManager tm;
+
+        /** The chain. */
         private X509Certificate[] chain;
 
+        /**
+         * Instantiates a new saving trust manager.
+         * 
+         * @param tm the tm
+         */
         SavingTrustManager(X509TrustManager tm) {
             this.tm = tm;
         }
 
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#getAcceptedIssuers()
+         */
         @Override
         public X509Certificate[] getAcceptedIssuers() {
             throw new UnsupportedOperationException();
         }
 
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#checkClientTrusted(java.security.cert.X509Certificate[], java.lang.String)
+         */
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             throw new UnsupportedOperationException();
         }
 
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#checkServerTrusted(java.security.cert.X509Certificate[], java.lang.String)
+         */
         @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             this.chain = chain;

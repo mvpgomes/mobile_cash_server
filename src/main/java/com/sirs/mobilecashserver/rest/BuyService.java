@@ -1,5 +1,8 @@
 package com.sirs.mobilecashserver.rest;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -7,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.sirs.mobilecashserver.conn.ConnectionFactory;
 import com.sirs.mobilecashserver.db.MobileCashServerDB;
 import com.sirs.mobilecashserver.rest.models.BankAccount;
 import com.sirs.mobilecashserver.rest.models.ErrorResponse;
@@ -19,12 +23,15 @@ import com.sirs.mobilecashserver.rest.models.User;
 @Path("buy")
 public class BuyService {
 
+    private final String url = "sodamachine.herokuapp.com/api/delivery/";
     private final MobileCashServerDB db = MobileCashServerDB.getInstance();
+    private final ConnectionFactory connFactory = ConnectionFactory.getInstance();
 
     @POST
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response buy(Payment payment) {
+    public Response buy(Payment payment) throws MalformedURLException, IOException {
+
         User user = db.login(payment.getUsername(), payment.getPassword());
 
         if (user != null) {
@@ -52,6 +59,6 @@ public class BuyService {
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
     public Payment buy() {
-        return new Payment("test", "test", "test");
+        return new Payment("test", "test", "test", new byte[1024]);
     }
 }

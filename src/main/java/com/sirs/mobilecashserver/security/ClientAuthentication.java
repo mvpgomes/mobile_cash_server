@@ -1,4 +1,4 @@
-package com.sirs.sodamachine.security;
+package com.sirs.mobilecashserver.security;
 
 /**
  *  Just an example for client authentication, need some adjustments

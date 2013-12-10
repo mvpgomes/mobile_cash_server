@@ -3,55 +3,71 @@ package com.sirs.mobilecashserver;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
+/**
+ * The Class Main.
+ */
 public class Main {
-	/*
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception {
-		initDB();
-		initServer();
-	}
 
-	/**
-	 * @throws Exception
-	 * @throws InterruptedException
-	 */
-	private static void initServer() throws Exception, InterruptedException {
-		String webappDirLocation = "src/main/webapp/";
+    /*
+     * @param args
+     */
+    /**
+     * The main method.
+     * 
+     * @param args the arguments
+     * @throws Exception the exception
+     */
+    public static void main(String[] args) throws Exception {
+        initDB();
+        //HttpsClient.testIt();
+        initServer();
+    }
 
-		// The port that we should run on can be set into an environment
-		// variable
-		// Look for that variable and default to 8080 if it isn't there.
-		String webPort = System.getenv("PORT");
-		if (webPort == null || webPort.isEmpty()) {
-			webPort = "8080";
-		}
+    /**
+     * Inits the server.
+     * 
+     * @throws Exception the exception
+     * @throws InterruptedException the interrupted exception
+     */
+    private static void initServer() throws Exception, InterruptedException {
+        String webappDirLocation = "src/main/webapp/";
 
-		Server server = new Server(Integer.valueOf(webPort));
-		WebAppContext root = new WebAppContext();
+        // The port that we should run on can be set into an environment
+        // variable
+        // Look for that variable and default to 8080 if it isn't there.
+        String webPort = System.getenv("PORT");
+        if (webPort == null || webPort.isEmpty()) {
+            webPort = "8080";
+        }
 
-		root.setContextPath("/");
-		root.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
-		root.setResourceBase(webappDirLocation);
+        Server server = new Server(Integer.valueOf(webPort));
+        WebAppContext root = new WebAppContext();
 
-		// Parent loader priority is a class loader setting that Jetty accepts.
-		// By default Jetty will behave like most web containers in that it will
-		// allow your application to replace non-server libraries that are part
-		// of the
-		// container. Setting parent loader priority to true changes this
-		// behavior.
-		// Read more here:
-		// http://wiki.eclipse.org/Jetty/Reference/Jetty_Classloading
-		root.setParentLoaderPriority(true);
+        root.setContextPath("/");
+        root.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
+        root.setResourceBase(webappDirLocation);
 
-		server.setHandler(root);
+        // Parent loader priority is a class loader setting that Jetty accepts.
+        // By default Jetty will behave like most web containers in that it will
+        // allow your application to replace non-server libraries that are part 
+        // of the
+        // container. Setting parent loader priority to true changes this
+        // behavior.
+        // Read more here:
+        // http://wiki.eclipse.org/Jetty/Reference/Jetty_Classloading
+        root.setParentLoaderPriority(true);
 
-		server.start();
-		server.join();
-	}
+        server.setHandler(root);
 
-	private static void initDB() {
-		FakeDB.init();
-	}
+        server.start();
+        server.join();
+    }
+
+    /**
+     * Inits the db.
+     */
+    private static void initDB() {
+        FakeDB.init();
+    }
 
 }
