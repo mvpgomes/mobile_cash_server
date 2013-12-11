@@ -86,6 +86,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- Joda-Time -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
+            
 		<!-- JERSEY -->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
