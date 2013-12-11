@@ -42,6 +42,7 @@ public class GetClientPublicKey {
             KeyFactory fact = KeyFactory.getInstance("RSA");
             PublicKey key = fact.generatePublic(spec);
             mobileCashAndroidPublicKey = key;
+            System.out.flush();
             return new PublicKeyResponse("The public key was saved with success.");
         } catch (Exception e) {
             return new ErrorResponse("The publicKey was not saved." + e.getMessage());
