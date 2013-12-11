@@ -18,7 +18,7 @@ public class Hello {
 				.forPattern("dd/MM/yyyy HH:mm:ss");
 		String output = "Jersey say : Hello !!! ";
 
-		output += "at " + fmt.print(dt);
+		output += "at " + fmt.print(dt) + " timestamp " + dt.getMillis();
 
 		return Response.status(200).entity(output).build();
 	}

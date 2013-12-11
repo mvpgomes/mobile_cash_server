@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.joda.time.DateTime;
+
 import com.sirs.mobilecashserver.conn.ConnectionFactory;
 import com.sirs.mobilecashserver.db.MobileCashServerDB;
 import com.sirs.mobilecashserver.rest.models.BankAccount;
@@ -28,11 +30,28 @@ public class BuyService {
 	private final ConnectionFactory connFactory = ConnectionFactory
 			.getInstance();
 
+	private boolean isFresh(long timestamp) {
+		DateTime currentTime = new DateTime();
+		DateTime receivedTime = new DateTime(timestamp);
+
+		DateTime minTime = currentTime.minusMinutes(1);
+
+		if (receivedTime.isAfter(minTime.getMillis())
+				&& receivedTime.isBeforeNow()) {
+			return true;
+		}
+		return false;
+	}
+
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response buy(Payment payment) throws MalformedURLException,
 			IOException {
+
+		if (!isFresh(payment.getTimestamp())) {
+			return new ErrorResponse("Message out of time");
+		}
 
 		User user = db.login(payment.getUsername(), payment.getPassword());
 

@@ -1,7 +1,7 @@
 package com.sirs.mobilecashserver.rest.models;
 
 /**
- * The Class Payment.
+ * The Class Payment. JSON - Object
  */
 public class Payment {
 
