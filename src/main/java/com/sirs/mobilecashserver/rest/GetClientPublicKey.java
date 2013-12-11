@@ -4,7 +4,6 @@ import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 
-import javax.crypto.Cipher;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,6 +14,7 @@ import com.sirs.mobilecashserver.rest.models.ErrorResponse;
 import com.sirs.mobilecashserver.rest.models.Key;
 import com.sirs.mobilecashserver.rest.models.PublicKeyResponse;
 import com.sirs.mobilecashserver.rest.models.Response;
+import com.sun.jersey.core.util.Base64;
 
 /**
  * The Class KeyPairGenerator.
@@ -37,9 +37,10 @@ public class GetClientPublicKey {
     public Response generatePublicKey(Key publicKey) {
         try {
             System.out.println("The received public key is :" + publicKey.getPublicKey());
-            byte[] keyBytes = publicKey.getPublicKey().getBytes();
-            Cipher c = Cipher.getInstance("RSA");
-            PublicKey key = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(keyBytes));
+            byte[] data = Base64.decode(publicKey.getPublicKey());
+            X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
+            KeyFactory fact = KeyFactory.getInstance("RSA");
+            PublicKey key = fact.generatePublic(spec);
             mobileCashAndroidPublicKey = key;
             return new PublicKeyResponse("The public key was saved with success.");
         } catch (Exception e) {
