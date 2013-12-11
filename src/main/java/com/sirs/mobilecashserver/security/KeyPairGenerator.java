@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.sirs.mobilecashserver.rest.models.ErrorResponse;
+import com.sirs.mobilecashserver.rest.models.Key;
 import com.sirs.mobilecashserver.rest.models.PublicKeyResponse;
 import com.sirs.mobilecashserver.rest.models.Response;
 
@@ -31,10 +32,10 @@ public class KeyPairGenerator {
     @Path("publicKey")
     @Produces({ MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_JSON })
-    public Response generatePublicKey(String publicKey) {
+    public Response generatePublicKey(Key publicKey) {
         try {
-
-            byte[] keyBytes = publicKey.getBytes();
+            System.out.println("The received public key is :" + publicKey.getPublicKey());
+            byte[] keyBytes = publicKey.getPublicKey().getBytes();
             Cipher c = Cipher.getInstance("RSA");
             PublicKey key = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(keyBytes));
             mobileCashAndroidPublicKey = key;
