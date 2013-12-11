@@ -5,109 +5,129 @@ package com.sirs.mobilecashserver.rest.models;
  */
 public class Payment {
 
-    /** The username. */
-    private String username;
+	/** The username. */
+	private String username;
 
-    /** The password. */
-    private String password;
+	/** The password. */
+	private String password;
 
-    /** The product. */
-    private String product;
+	/** The product. */
+	private String product;
 
-    /** The message's digest. */
-    private byte[] digest;
+	private long timestamp;
 
-    /**
-     * Instantiates a new payment.
-     */
-    public Payment() {
-    }
+	/** The message's digest. */
+	private String hash;
 
-    /**
-     * Instantiates a new payment.
-     * 
-     * @param username the username
-     * @param password the password
-     * @param product the product
-     * @param digest the digest
-     */
-    public Payment(String username, String password, String product, byte[] digest) {
-        this.username = username;
-        this.password = password;
-        this.product = product;
-        this.digest = digest;
-    }
+	/**
+	 * Instantiates a new payment.
+	 */
+	public Payment() {
+	}
 
-    /**
-     * Gets the username.
-     * 
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
-    }
+	/**
+	 * Instantiates a new payment.
+	 * 
+	 * @param username
+	 *            the username
+	 * @param password
+	 *            the password
+	 * @param product
+	 *            the product
+	 * @param hash
+	 *            the digest
+	 */
+	public Payment(String username, String password, String product,
+			long timestamp, String hash) {
+		this.username = username;
+		this.password = password;
+		this.product = product;
+		this.timestamp = timestamp;
+		this.hash = hash;
+	}
 
-    /**
-     * Sets the username.
-     * 
-     * @param username the new username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	/**
+	 * Gets the username.
+	 * 
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
 
-    /**
-     * Gets the password.
-     * 
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
+	/**
+	 * Sets the username.
+	 * 
+	 * @param username
+	 *            the new username
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    /**
-     * Sets the password.
-     * 
-     * @param password the new password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	/**
+	 * Gets the password.
+	 * 
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
 
-    /**
-     * Gets the product.
-     * 
-     * @return the product
-     */
-    public String getProduct() {
-        return product;
-    }
+	/**
+	 * Sets the password.
+	 * 
+	 * @param password
+	 *            the new password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    /**
-     * Gets the digest.
-     * 
-     * @return the digest
-     */
-    public byte[] getDigest() {
-        return digest;
-    }
+	/**
+	 * Gets the product.
+	 * 
+	 * @return the product
+	 */
+	public String getProduct() {
+		return product;
+	}
 
-    /**
-     * Sets the digest.
-     * 
-     * @param digest the new digest
-     */
-    public void setDigest(byte[] digest) {
-        this.digest = digest;
-    }
+	/**
+	 * Gets the digest.
+	 * 
+	 * @return the digest
+	 */
+	public String getHash() {
+		return hash;
+	}
 
-    /**
-     * Sets the product.
-     * 
-     * @param product the new product
-     */
-    public void setProduct(String product) {
-        this.product = product;
-    }
+	/**
+	 * Sets the digest.
+	 * 
+	 * @param hash
+	 *            the new digest
+	 */
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	/**
+	 * Sets the product.
+	 * 
+	 * @param product
+	 *            the new product
+	 */
+	public void setProduct(String product) {
+		this.product = product;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
 
 }
