@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import com.sirs.mobilecashserver.rest.models.BankAccount;
 import com.sirs.mobilecashserver.rest.models.Product;
@@ -46,7 +47,8 @@ public class MobileCashServerDB {
 	 */
 	public void registerUser(String username, String password)
 			throws NoSuchAlgorithmException {
-		User user = new User(username, hash(password));
+		String salt = UUID.randomUUID().toString();
+		User user = new User(username, hash(password + salt), salt);
 		this.users.put(username, user);
 	}
 
@@ -108,10 +110,13 @@ public class MobileCashServerDB {
 
 	public User login(String username, String password) {
 		User user = getUser(username);
+		String salt = "";
 		try {
-			byte[] hashedPassword = hash(password);
-			if (user != null
-					&& Arrays.equals(user.getPassword(), hashedPassword)) {
+			if (user != null)
+				salt = user.getSalt();
+			byte[] hashedPassword = hash(password + salt);
+
+			if (Arrays.equals(user.getPassword(), hashedPassword)) {
 				return user;
 			} else {
 				return null;

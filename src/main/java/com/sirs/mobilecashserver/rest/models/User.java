@@ -1,63 +1,37 @@
 package com.sirs.mobilecashserver.rest.models;
 
-/**
- * The Class User.
- */
 public class User {
 
-	/** The username. */
 	private String username;
-
-	/** The password. */
 	private byte[] password;
+	private String salt;
 
-	/**
-	 * Instantiates a new user.
-	 * 
-	 * @param username
-	 *            the username
-	 * @param password
-	 *            the password
-	 */
-	public User(String username, byte[] password) {
-		this.username = username;
-		this.password = password;
+	public String getSalt() {
+		return salt;
 	}
 
-	/**
-	 * Gets the username.
-	 * 
-	 * @return the username
-	 */
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public User(String username, byte[] password, String salt) {
+		this.username = username;
+		this.password = password;
+		this.salt = salt;
+	}
+
 	public String getUsername() {
 		return username;
 	}
 
-	/**
-	 * Sets the username.
-	 * 
-	 * @param username
-	 *            the new username
-	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	/**
-	 * Gets the password.
-	 * 
-	 * @return the password
-	 */
 	public byte[] getPassword() {
 		return password;
 	}
 
-	/**
-	 * Sets the password.
-	 * 
-	 * @param password
-	 *            the new password
-	 */
 	public void setPassword(byte[] password) {
 		this.password = password;
 	}
