@@ -6,6 +6,7 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -18,6 +19,7 @@ import com.sirs.mobilecashserver.rest.models.Response;
 /**
  * The Class KeyPairGenerator.
  */
+@Path("publicKey")
 public class KeyPairGenerator {
 
     /** The mobile cash android public key. */
@@ -29,7 +31,7 @@ public class KeyPairGenerator {
      * @param publicKey the public key
      * @return the response
      */
-    @Path("publicKey")
+    @POST
     @Produces({ MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_JSON })
     public Response generatePublicKey(Key publicKey) {
