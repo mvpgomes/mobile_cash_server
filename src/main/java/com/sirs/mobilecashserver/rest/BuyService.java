@@ -109,7 +109,7 @@ public class BuyService {
 			json.put("product", payment.getProduct());
 			json.put("timestamp", payment.getTimestamp());
 			json.put(
-					"deliveryMessage",
+					"cyphered",
 					Encryption.encrypt(payment.getProduct()
 							+ payment.getTimestamp()));
 		} catch (Exception e) {
