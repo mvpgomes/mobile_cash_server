@@ -25,6 +25,8 @@ public class Encryption {
 
 	private static Key generateKey(byte[] seed) throws Exception {
 		byte[] newKey = new byte[keyValue.length + seed.length];
+		System.out.println("Key length " + keyValue.length + " Seed length "
+				+ seed.length);
 		System.arraycopy(keyValue, 0, newKey, 0, keyValue.length);
 		System.arraycopy(seed, 0, newKey, keyValue.length, seed.length);
 		Key key = new SecretKeySpec(newKey, ALGO);
