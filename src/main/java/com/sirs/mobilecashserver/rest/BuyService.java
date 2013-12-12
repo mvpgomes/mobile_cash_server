@@ -118,6 +118,7 @@ public class BuyService {
 		}
 		cm.sendPUT(conn, json.toString());
 		String response = cm.readConnection(conn);
+		conn.disconnect();
 		System.out.println("Received response from machine " + response);
 		JSONObject responseJSON = new JSONObject(response);
 		String responseType = responseJSON.getString("type");

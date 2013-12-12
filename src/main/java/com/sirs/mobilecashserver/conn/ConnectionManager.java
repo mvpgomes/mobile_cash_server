@@ -40,6 +40,7 @@ public class ConnectionManager {
 			throw new RuntimeException("Failed : HTTP error code : "
 					+ conn.getResponseCode());
 		}
+		os.close();
 	}
 
 	public void sendGET(HttpsURLConnection conn) throws IOException {
