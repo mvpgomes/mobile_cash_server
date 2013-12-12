@@ -127,6 +127,14 @@
 			<version>7.6.0.v20120127</version>
 		</dependency>
 
+		<!-- JSON -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20131018</version>
+		</dependency>
+
+
 
 
 	</dependencies>
