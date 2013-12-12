@@ -67,7 +67,7 @@ public class DigitalSignatureManager {
         jsonPayment.put("product", payment.getProduct());
         jsonPayment.put("timestamp", payment.getTimestamp());
         String message = jsonPayment.toString();
-        byte[] buffer = Base64.decode(message);
+        byte[] buffer = message.getBytes();
         signature.update(buffer);
         return signature.verify(signBytes);
     }
