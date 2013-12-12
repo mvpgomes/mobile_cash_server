@@ -115,8 +115,10 @@ public class BuyService {
 			json.put("product", payment.getProduct());
 			json.put("timestamp", timestamp);
 			json.put("seed", new String(Base64.encodeBase64(seed)));
-			json.put("cyphered",
-					Encryption.encrypt(payment.getProduct() + timestamp, seed));
+			json.put(
+					"cyphered",
+					Encryption.encrypt(payment.getProduct() + timestamp,
+							Base64.encodeBase64(seed)));
 		} catch (Exception e) {
 			return new ErrorResponse("Encryption failed");
 		}
