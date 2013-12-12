@@ -9,6 +9,7 @@ public class PaymentResponse extends Response {
 		this.username = "";
 		this.product = "";
 		this.balance = 0;
+		setType("PAYMENT");
 	}
 
 	public PaymentResponse(String username, String product, double balance) {
@@ -16,6 +17,7 @@ public class PaymentResponse extends Response {
 		this.username = username;
 		this.product = product;
 		this.balance = balance;
+		setType("PAYMENT");
 	}
 
 	public String getUsername() {

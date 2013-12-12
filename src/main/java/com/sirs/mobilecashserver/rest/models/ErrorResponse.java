@@ -5,11 +5,13 @@ public class ErrorResponse extends Response {
 
 	public ErrorResponse() {
 		super();
+		setType("ERROR");
 	}
 
 	public ErrorResponse(String message) {
 		super();
 		this.message = message;
+		setType("ERROR");
 	}
 
 	public String getMessage() {
