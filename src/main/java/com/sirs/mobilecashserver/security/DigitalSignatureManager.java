@@ -69,6 +69,8 @@ public class DigitalSignatureManager {
         String message = jsonPayment.toString();
         byte[] buffer = hash(message, hashAlgorithm);
         signature.update(buffer);
+        System.out.println(" The signBytes is : " + payment.getHash());
+        System.out.println(" The hash is :" + new String(Base64.encode(buffer)));
         return signature.verify(signBytes);
     }
 
