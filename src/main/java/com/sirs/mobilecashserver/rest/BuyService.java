@@ -61,13 +61,13 @@ public class BuyService {
 			IOException, InvalidKeyException, NoSuchAlgorithmException,
 			SignatureException, JSONException {
 
+		if (!isFresh(payment.getTimestamp())) {
+			return new ErrorResponse("Message out of time");
+		}
+
 		if (!signManager.verifySignature(payment, "RSA", "SHA1",
 				GetClientPublicKey.getMobileCashAndroidPublicKey())) {
 			return new ErrorResponse("Error verifying signature");
-		}
-
-		if (!isFresh(payment.getTimestamp())) {
-			return new ErrorResponse("Message out of time");
 		}
 
 		User user = db.login(payment.getUsername(), payment.getPassword());
@@ -105,9 +105,11 @@ public class BuyService {
 		HttpsURLConnection conn = connFactory.createConnection(url);
 		ConnectionManager cm = ConnectionManager.getInstance();
 		JSONObject json = new JSONObject();
+		DateTime currentTime = new DateTime();
+
 		try {
 			json.put("product", payment.getProduct());
-			json.put("timestamp", payment.getTimestamp());
+			json.put("timestamp", currentTime.getMillis());
 			json.put(
 					"cyphered",
 					Encryption.encrypt(payment.getProduct()
