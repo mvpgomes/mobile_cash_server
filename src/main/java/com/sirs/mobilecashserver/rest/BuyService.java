@@ -106,14 +106,13 @@ public class BuyService {
 		ConnectionManager cm = ConnectionManager.getInstance();
 		JSONObject json = new JSONObject();
 		DateTime currentTime = new DateTime();
+		long timestamp = currentTime.getMillis();
 
 		try {
 			json.put("product", payment.getProduct());
-			json.put("timestamp", currentTime.getMillis());
-			json.put(
-					"cyphered",
-					Encryption.encrypt(payment.getProduct()
-							+ payment.getTimestamp()));
+			json.put("timestamp", timestamp);
+			json.put("cyphered",
+					Encryption.encrypt(payment.getProduct() + timestamp));
 		} catch (Exception e) {
 			return new ErrorResponse("Encryption failed");
 		}
