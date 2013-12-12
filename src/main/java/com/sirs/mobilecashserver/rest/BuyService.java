@@ -120,7 +120,7 @@ public class BuyService {
 					Encryption.encrypt(payment.getProduct() + timestamp,
 							Base64.encodeBase64(seed)));
 		} catch (Exception e) {
-			return new ErrorResponse("Encryption failed");
+			return new ErrorResponse("Encryption failed " + e.getMessage());
 		}
 		cm.sendPUT(conn, json.toString());
 		String response = cm.readConnection(conn);
