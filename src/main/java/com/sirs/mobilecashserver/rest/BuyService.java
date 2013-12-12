@@ -35,7 +35,7 @@ import com.sirs.mobilecashserver.security.Encryption;
 
 @Path("buy")
 public class BuyService {
-	private final byte[] seed = new byte[16];
+	private final byte[] seed = new byte[8];
 	private final String url = "https://sodamachine.herokuapp.com/api/delivery/";
 	private final MobileCashServerDB db = MobileCashServerDB.getInstance();
 	private final ConnectionFactory connFactory = ConnectionFactory
