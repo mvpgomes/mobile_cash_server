@@ -5,36 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-/**
- * The Class Main.
- */
 public class Main {
 
-	/*
-	 * @param args
-	 */
-	/**
-	 * The main method.
-	 * 
-	 * @param args
-	 *            the arguments
-	 * @throws Exception
-	 *             the exception
-	 */
-	public static void main(String[] args) throws Exception {
-		initDB();
-		// HttpsClient.testIt();
-		initServer();
-	}
-
-	/**
-	 * Inits the server.
-	 * 
-	 * @throws Exception
-	 *             the exception
-	 * @throws InterruptedException
-	 *             the interrupted exception
-	 */
 	private static void initServer() throws Exception, InterruptedException {
 		String webappDirLocation = "src/main/webapp/";
 
@@ -62,20 +34,18 @@ public class Main {
 		// Read more here:
 		// http://wiki.eclipse.org/Jetty/Reference/Jetty_Classloading
 		root.setParentLoaderPriority(true);
-
 		server.setHandler(root);
-
 		server.start();
 		server.join();
 	}
 
-	/**
-	 * Inits the db.
-	 * 
-	 * @throws NoSuchAlgorithmException
-	 */
 	private static void initDB() throws NoSuchAlgorithmException {
 		FakeDB.init();
+	}
+
+	public static void main(String[] args) throws Exception {
+		initDB();
+		initServer();
 	}
 
 }
