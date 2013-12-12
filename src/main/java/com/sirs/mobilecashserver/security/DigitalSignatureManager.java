@@ -9,7 +9,6 @@ import java.security.Signature;
 import java.security.SignatureException;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.sirs.mobilecashserver.rest.models.Payment;
 import com.sun.jersey.core.util.Base64;
@@ -76,14 +75,17 @@ public class DigitalSignatureManager {
 		byte[] signBytes = Base64.decode(payment.getHash().getBytes());
 		Signature signature = Signature.getInstance(hashAlgorithm + "with"
 				+ signAlgorithm);
-		JSONObject jsonPayment = new JSONObject();
-		jsonPayment.put("username", payment.getUsername());
-		jsonPayment.put("password", payment.getPassword());
-		jsonPayment.put("product", payment.getProduct());
-		jsonPayment.put("timestamp", payment.getTimestamp());
-		String message = jsonPayment.toString();
-		System.out.println("Original message: " + message);
-		byte[] buffer = message.getBytes();
+		/*
+		 * JSONObject jsonPayment = new JSONObject();
+		 * jsonPayment.put("username", payment.getUsername());
+		 * jsonPayment.put("password", payment.getPassword());
+		 * jsonPayment.put("product", payment.getProduct());
+		 * jsonPayment.put("timestamp", payment.getTimestamp()); String message
+		 * = jsonPayment.toString();
+		 */
+		String notSignedMessage = getNotSignedMessage(payment);
+		System.out.println("Not signed " + notSignedMessage);
+		byte[] buffer = notSignedMessage.getBytes();
 
 		signature.initVerify(pKey);
 		signature.update(buffer);
@@ -100,6 +102,11 @@ public class DigitalSignatureManager {
 			DigitalSignatureManager.instance = new DigitalSignatureManager();
 		}
 		return DigitalSignatureManager.instance;
+	}
+
+	private String getNotSignedMessage(Payment payment) {
+		return payment.getUsername() + payment.getPassword()
+				+ payment.getProduct() + payment.getTimestamp();
 	}
 
 }
