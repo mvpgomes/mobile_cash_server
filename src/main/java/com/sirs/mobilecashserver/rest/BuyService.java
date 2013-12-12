@@ -45,7 +45,7 @@ public class BuyService {
 		DateTime currentTime = new DateTime();
 		DateTime receivedTime = new DateTime(timestamp);
 
-		DateTime minTime = currentTime.minusMinutes(1);
+		DateTime minTime = currentTime.minusMinutes(10);
 
 		if (receivedTime.isAfter(minTime.getMillis())
 				&& receivedTime.isBeforeNow()) {
