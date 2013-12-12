@@ -28,6 +28,8 @@ public class Encryption {
 		System.arraycopy(keyValue, 0, newKey, 0, keyValue.length);
 		System.arraycopy(seed, 0, newKey, keyValue.length, seed.length);
 		Key key = new SecretKeySpec(newKey, ALGO);
+		System.out.println("Sending key " + new String(newKey));
 		return key;
 	}
+
 }
