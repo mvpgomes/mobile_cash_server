@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
+import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.ws.rs.Consumes;
@@ -14,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jettison.json.JSONException;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
@@ -33,7 +35,7 @@ import com.sirs.mobilecashserver.security.Encryption;
 
 @Path("buy")
 public class BuyService {
-
+	private final byte[] seed = new byte[20];
 	private final String url = "https://sodamachine.herokuapp.com/api/delivery/";
 	private final MobileCashServerDB db = MobileCashServerDB.getInstance();
 	private final ConnectionFactory connFactory = ConnectionFactory
@@ -108,10 +110,13 @@ public class BuyService {
 		long timestamp = currentTime.getMillis();
 
 		try {
+			// creates a random array
+			new Random().nextBytes(seed);
 			json.put("product", payment.getProduct());
 			json.put("timestamp", timestamp);
+			json.put("seed", new String(Base64.encodeBase64(seed)));
 			json.put("cyphered",
-					Encryption.encrypt(payment.getProduct() + timestamp));
+					Encryption.encrypt(payment.getProduct() + timestamp, seed));
 		} catch (Exception e) {
 			return new ErrorResponse("Encryption failed");
 		}
