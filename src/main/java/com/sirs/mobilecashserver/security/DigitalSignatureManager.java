@@ -12,7 +12,6 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.sirs.mobilecashserver.rest.models.Payment;
-import com.sun.jersey.core.util.Base64;
 
 /**
  * The Class DigitalSignatureManager.
@@ -58,7 +57,7 @@ public class DigitalSignatureManager {
      */
     public boolean verifySignature(Payment payment, String signAlgorithm, String hashAlgorithm, PublicKey pKey)
             throws NoSuchAlgorithmException, InvalidKeyException, IOException, SignatureException, JSONException {
-        byte[] signBytes = Base64.decode(payment.getHash());
+        byte[] signBytes = payment.getHash().getBytes();
         Signature signature = Signature.getInstance(hashAlgorithm + "with" + signAlgorithm);
         signature.initVerify(pKey);
         JSONObject jsonPayment = new JSONObject();
