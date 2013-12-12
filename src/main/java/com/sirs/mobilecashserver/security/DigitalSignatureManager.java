@@ -8,8 +8,8 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.sirs.mobilecashserver.rest.models.Payment;
 import com.sun.jersey.core.util.Base64;
@@ -76,7 +76,6 @@ public class DigitalSignatureManager {
 		byte[] signBytes = Base64.decode(payment.getHash().getBytes());
 		Signature signature = Signature.getInstance(hashAlgorithm + "with"
 				+ signAlgorithm);
-		signature.initVerify(pKey);
 		JSONObject jsonPayment = new JSONObject();
 		jsonPayment.put("username", payment.getUsername());
 		jsonPayment.put("password", payment.getPassword());
@@ -85,6 +84,8 @@ public class DigitalSignatureManager {
 		String message = jsonPayment.toString();
 		System.out.println("Original message: " + message);
 		byte[] buffer = message.getBytes();
+
+		signature.initVerify(pKey);
 		signature.update(buffer);
 		return signature.verify(signBytes);
 	}
