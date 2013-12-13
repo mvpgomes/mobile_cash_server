@@ -21,3 +21,6 @@ Call some endpoint:
 - Deploy in heroku:
 <br>
 <code> git push heroku master </code>
+
+The application endpoints are implemented in the following package :
+- src/main/java/com.sirs.mobilecashserver.rest
