@@ -8,18 +8,26 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+/**
+ * The Class Hello.
+ */
 @Path("/hello")
 public class Hello {
-	@GET
-	public Response getMsg() {
 
-		DateTime dt = new DateTime();
-		DateTimeFormatter fmt = DateTimeFormat
-				.forPattern("dd/MM/yyyy HH:mm:ss");
-		String output = "Jersey say : Hello !!! ";
+    /**
+     * Gets the msg.
+     * 
+     * @return the msg
+     */
+    @GET
+    public Response getMsg() {
 
-		output += "at " + fmt.print(dt) + " timestamp " + dt.getMillis();
+        DateTime dt = new DateTime();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+        String output = "Jersey say : Hello !!! ";
 
-		return Response.status(200).entity(output).build();
-	}
+        output += "at " + fmt.print(dt) + " timestamp " + dt.getMillis();
+
+        return Response.status(200).entity(output).build();
+    }
 }

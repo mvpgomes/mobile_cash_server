@@ -34,14 +34,11 @@ public class GetClientPublicKey {
     @Consumes({ MediaType.APPLICATION_JSON })
     public Response generatePublicKey(Key publicKey) {
         try {
-            System.out.println("The received public key is :" + publicKey.getPublicKey());
             byte[] data = Base64.decode(publicKey.getPublicKey());
             X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
             KeyFactory fact = KeyFactory.getInstance("RSA");
             PublicKey key = fact.generatePublic(spec);
             DigitalSignatureManager.setMobileCashAndroidPublicKey(key);
-            System.out.println("Digital signature manager saves the key "
-                    + new String(Base64.encode(DigitalSignatureManager.getMobileCashAndroidPublicKey().getEncoded())));
             return new PublicKeyResponse("The public key was saved with success.");
         } catch (Exception e) {
             return new ErrorResponse("The publicKey was not saved." + e.getMessage());

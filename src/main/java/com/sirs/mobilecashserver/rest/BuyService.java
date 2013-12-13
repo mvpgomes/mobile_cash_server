@@ -9,7 +9,6 @@ import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -33,14 +32,33 @@ import com.sirs.mobilecashserver.rest.models.User;
 import com.sirs.mobilecashserver.security.DigitalSignatureManager;
 import com.sirs.mobilecashserver.security.Encryption;
 
+/**
+ * The Class BuyService.
+ */
 @Path("buy")
 public class BuyService {
+
+    /** The seed. */
     private final byte[] seed = new byte[16];
+
+    /** The url. */
     private final String url = "https://sodamachine.herokuapp.com/api/delivery/";
+
+    /** The db. */
     private final MobileCashServerDB db = MobileCashServerDB.getInstance();
+
+    /** The conn factory. */
     private final ConnectionFactory connFactory = ConnectionFactory.getInstance();
+
+    /** The sign manager. */
     private final DigitalSignatureManager signManager = DigitalSignatureManager.getInstance();
 
+    /**
+     * Checks if is fresh.
+     * 
+     * @param timestamp the timestamp
+     * @return true, if is fresh
+     */
     private boolean isFresh(long timestamp) {
         DateTime currentTime = new DateTime();
         DateTime receivedTime = new DateTime(timestamp);
@@ -53,6 +71,18 @@ public class BuyService {
         return false;
     }
 
+    /**
+     * Buy.
+     * 
+     * @param payment the payment
+     * @return the response
+     * @throws MalformedURLException the malformed url exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InvalidKeyException the invalid key exception
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     * @throws SignatureException the signature exception
+     * @throws JSONException the jSON exception
+     */
     @POST
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
@@ -88,17 +118,25 @@ public class BuyService {
 
     }
 
-    @GET
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Payment buy() {
-        return new Payment("test", "test", "test", 0, "hash");
-    }
-
+    /**
+     * Request product.
+     * 
+     * @param payment the payment
+     * @param account the account
+     * @param product the product
+     * @return the response
+     * @throws MalformedURLException the malformed url exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws JSONException the jSON exception
+     */
     private Response requestProduct(Payment payment, BankAccount account, Product product) throws MalformedURLException,
             IOException, JSONException {
 
-        HttpsURLConnection conn = connFactory.createConnection(url);
-        if (conn.getResponseCode() != 200) {
+        HttpsURLConnection conn;
+
+        try {
+            conn = connFactory.createConnection(url);
+        } catch (Exception e) {
             return new ErrorResponse("The machine is out of service");
         }
         ConnectionManager cm = ConnectionManager.getInstance();

@@ -1,39 +1,84 @@
 package com.sirs.mobilecashserver.rest.models;
 
+/**
+ * The Class User.
+ */
 public class User {
 
-	private String username;
-	private byte[] password;
-	private String salt;
+    /** The username. */
+    private String username;
 
-	public String getSalt() {
-		return salt;
-	}
+    /** The password. */
+    private byte[] password;
 
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
+    /** The salt. */
+    private String salt;
 
-	public User(String username, byte[] password, String salt) {
-		this.username = username;
-		this.password = password;
-		this.salt = salt;
-	}
+    /**
+     * Gets the salt.
+     * 
+     * @return the salt
+     */
+    public String getSalt() {
+        return salt;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    /**
+     * Sets the salt.
+     * 
+     * @param salt the new salt
+     */
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    /**
+     * Instantiates a new user.
+     * 
+     * @param username the username
+     * @param password the password
+     * @param salt the salt
+     */
+    public User(String username, byte[] password, String salt) {
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+    }
 
-	public byte[] getPassword() {
-		return password;
-	}
+    /**
+     * Gets the username.
+     * 
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
 
-	public void setPassword(byte[] password) {
-		this.password = password;
-	}
+    /**
+     * Sets the username.
+     * 
+     * @param username the new username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Gets the password.
+     * 
+     * @return the password
+     */
+    public byte[] getPassword() {
+        return password;
+    }
+
+    /**
+     * Sets the password.
+     * 
+     * @param password the new password
+     */
+    public void setPassword(byte[] password) {
+        this.password = password;
+    }
 
 }
