@@ -14,6 +14,7 @@ import com.sirs.mobilecashserver.rest.models.ErrorResponse;
 import com.sirs.mobilecashserver.rest.models.Key;
 import com.sirs.mobilecashserver.rest.models.PublicKeyResponse;
 import com.sirs.mobilecashserver.rest.models.Response;
+import com.sirs.mobilecashserver.security.DigitalSignatureManager;
 import com.sun.jersey.core.util.Base64;
 
 /**
@@ -21,9 +22,6 @@ import com.sun.jersey.core.util.Base64;
  */
 @Path("publicKey")
 public class GetClientPublicKey {
-
-    /** The mobile cash android public key. */
-    private static PublicKey mobileCashAndroidPublicKey;
 
     /**
      * Generate public key.
@@ -41,28 +39,12 @@ public class GetClientPublicKey {
             X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
             KeyFactory fact = KeyFactory.getInstance("RSA");
             PublicKey key = fact.generatePublic(spec);
-            mobileCashAndroidPublicKey = key;
+            DigitalSignatureManager.setMobileCashAndroidPublicKey(key);
+            System.out.println("Digital signature manager saves the key "
+                    + new String(Base64.encode(DigitalSignatureManager.getMobileCashAndroidPublicKey().getEncoded())));
             return new PublicKeyResponse("The public key was saved with success.");
         } catch (Exception e) {
             return new ErrorResponse("The publicKey was not saved." + e.getMessage());
         }
-    }
-
-    /**
-     * Gets the mobile cash android public key.
-     * 
-     * @return the mobile cash android public key
-     */
-    public static PublicKey getMobileCashAndroidPublicKey() {
-        return mobileCashAndroidPublicKey;
-    }
-
-    /**
-     * Sets the mobile cash android public key.
-     * 
-     * @param mobileCashAndroidPublicKey the new mobile cash android public key
-     */
-    public static void setMobileCashAndroidPublicKey(PublicKey mobileCashAndroidPublicKey) {
-        GetClientPublicKey.mobileCashAndroidPublicKey = mobileCashAndroidPublicKey;
     }
 }
