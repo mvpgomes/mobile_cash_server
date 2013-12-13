@@ -98,6 +98,9 @@ public class BuyService {
             IOException, JSONException {
 
         HttpsURLConnection conn = connFactory.createConnection(url);
+        if (conn.getResponseCode() != 200) {
+            return new ErrorResponse("The machine is out of service");
+        }
         ConnectionManager cm = ConnectionManager.getInstance();
         JSONObject json = new JSONObject();
         DateTime currentTime = new DateTime();
